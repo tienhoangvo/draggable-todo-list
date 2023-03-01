@@ -56,7 +56,7 @@ function App() {
 
 
   return (
-    <div className="App" style={{ width: "min(500px, 100vw)", marginInline: "auto"}}>
+    <div className="App" style={{ width: "min(500px, 100vw)", marginInline: "auto", padding: "16px"}}>
       <TodoFilter searchTerm={searchTerm} sortBy={sortBy} order={order} onSearch={setSearchTerm} onSort={sort} onDone={done} done={filterDone} />
       <TodoList items={filteredItems} renderItem={(item) => <TodoListItem item={item} onCheck={toggleTodo} onSwap={swapTodos} onUpdate={updateTodo}/>}/>
       <AddTodoForm onAddTodo={addTodo} />
