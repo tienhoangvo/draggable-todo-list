@@ -50,6 +50,11 @@ function App() {
     setOrder(order)
   }
 
+  const clearSort = () => {
+    setSortBy(null)
+    setOrder(null)
+  }
+
   const done = (done: Todo['checked'] | null) => {
     setFilterDone(done)
   }
@@ -57,7 +62,7 @@ function App() {
 
   return (
     <div className="App" style={{ width: "min(500px, 100vw)", marginInline: "auto", padding: "16px", boxSizing: "border-box"}}>
-      <TodoFilter searchTerm={searchTerm} sortBy={sortBy} order={order} onSearch={setSearchTerm} onSort={sort} onDone={done} done={filterDone} />
+      <TodoFilter searchTerm={searchTerm} sortBy={sortBy} order={order} onSearch={setSearchTerm} onSort={sort} onDone={done} done={filterDone} onClear={clearSort}/>
       <TodoList items={filteredItems} renderItem={(item) => <TodoListItem item={item} onCheck={toggleTodo} onSwap={swapTodos} onUpdate={updateTodo}/>}/>
       <AddTodoForm onAddTodo={addTodo} />
     </div>

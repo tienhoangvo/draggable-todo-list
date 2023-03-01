@@ -1,4 +1,5 @@
 import { ChangeEventHandler, ReactEventHandler } from "react";
+import Button from "./Button";
 import type { Todo } from "./TodoList";
 
 export type TodoSortBy = keyof Pick<Todo, "name" | "checked"> | null;
@@ -13,6 +14,7 @@ export type TodoFilterProps = {
   onSearch: (term: string) => void;
   onSort: (sortBy: TodoSortBy, order: TodoSortOrder) => void;
   onDone: (done: Todo["checked"] | null) => void;
+  onClear: () => void;
 };
 
 const TodoFilter = ({
@@ -23,6 +25,7 @@ const TodoFilter = ({
   onSearch,
   onSort,
   onDone,
+  onClear,
 }: TodoFilterProps) => {
   const searchChangeHandler: ReactEventHandler<HTMLInputElement> = (event) => {
     onSearch(event.currentTarget.value);
@@ -51,6 +54,10 @@ const TodoFilter = ({
 
   const orderChangeHandler: ChangeEventHandler<HTMLSelectElement> = (event) => {
     onSort(sortBy, event.currentTarget.value as TodoSortOrder);
+  };
+
+  const clearHandler: ReactEventHandler<HTMLButtonElement> = () => {
+    onClear();
   };
 
   return (
@@ -97,26 +104,25 @@ const TodoFilter = ({
       </fieldset>
       <fieldset>
         <legend>Sort</legend>
-        <select name="sortBy" onChange={sortByChangeHandler} value={sortBy || ""}>
+        <select
+          name="sortBy"
+          onChange={sortByChangeHandler}
+          value={sortBy || ""}
+        >
           <option value="" disabled hidden>
             Select field
           </option>
-          <option value="name">
-            Name
-          </option>
-          <option value="checked">
-            Checked
-          </option>
+          <option value="name">Name</option>
+          <option value="checked">Checked</option>
         </select>
         {sortBy && (
-          <select name="order" onChange={orderChangeHandler}>
-            <option value="asc">
-              ASC
-            </option>
-            <option value="desc">
-              DESC
-            </option>
-          </select>
+          <>
+            <select name="order" onChange={orderChangeHandler}>
+              <option value="asc">ASC</option>
+              <option value="desc">DESC</option>
+            </select>
+            <Button onClick={clearHandler}>Clear</Button>
+          </>
         )}
       </fieldset>
     </form>
