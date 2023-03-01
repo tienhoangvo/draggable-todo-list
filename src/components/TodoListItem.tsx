@@ -7,9 +7,10 @@ export type TodoListItemProps = {
   onCheck: (id: string) => void;
   onSwap: (id1: Todo["id"], id2: Todo["id"]) => void;
   onUpdate: (todoId: Todo['id'],todoName: Todo['name']) => void;
+  onDelete: (todoId: Todo['id']) => void;
 };
 
-const TodoListItem = ({ item, onCheck, onSwap, onUpdate }: TodoListItemProps) => {
+const TodoListItem = ({ item, onCheck, onSwap, onUpdate, onDelete }: TodoListItemProps) => {
   const changeHandler: ReactEventHandler<HTMLInputElement> = (event) => {
     console.log(event);
     onCheck(item.id);
@@ -61,6 +62,10 @@ const TodoListItem = ({ item, onCheck, onSwap, onUpdate }: TodoListItemProps) =>
     onUpdate(item.id, value)
   }
 
+  const deleteClickHandler: ReactEventHandler<HTMLButtonElement> = () => {
+    onDelete(item.id)
+  }
+
   return (
     <ListItem
       style={{
@@ -84,6 +89,7 @@ const TodoListItem = ({ item, onCheck, onSwap, onUpdate }: TodoListItemProps) =>
     >
       <input type="checkbox" checked={item.checked} onChange={changeHandler} />
       {item.checked ? <mark dangerouslySetInnerHTML={{__html: item.name}}/> : <span contentEditable={contentEditable} suppressContentEditableWarning style={{ outline: "none "}} onDoubleClick={doubleClickHandler} onBlur={nameChangeHandler} dangerouslySetInnerHTML={{__html: item.name}}/>}
+      <button onClick={deleteClickHandler}>❌</button>
     </ListItem>
   );
 };

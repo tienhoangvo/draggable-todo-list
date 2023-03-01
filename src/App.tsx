@@ -45,6 +45,10 @@ function App() {
     setItems((items) => items.map((item) => item.id === todoId ? {...item, name: todoName } : item))
   }
 
+  const deleteTodo = (todoId: Todo['id']) => {
+    setItems((items) => items.filter((item) => item.id !== todoId))
+  }
+
   const sort = (sortBy: TodoSortBy, order: TodoSortOrder) => {
     setSortBy(sortBy)
     setOrder(order)
@@ -63,7 +67,7 @@ function App() {
   return (
     <div className="App" style={{ width: "min(500px, 100vw)", marginInline: "auto", padding: "16px", boxSizing: "border-box"}}>
       <TodoFilter searchTerm={searchTerm} sortBy={sortBy} order={order} onSearch={setSearchTerm} onSort={sort} onDone={done} done={filterDone} onClear={clearSort}/>
-      <TodoList items={filteredItems} renderItem={(item) => <TodoListItem item={item} onCheck={toggleTodo} onSwap={swapTodos} onUpdate={updateTodo}/>}/>
+      <TodoList items={filteredItems} renderItem={(item) => <TodoListItem item={item} onCheck={toggleTodo} onSwap={swapTodos} onUpdate={updateTodo} onDelete={deleteTodo}/>}/>
       <AddTodoForm onAddTodo={addTodo} />
     </div>
   );
