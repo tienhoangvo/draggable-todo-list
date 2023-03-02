@@ -14,15 +14,15 @@ function App() {
 
   let filteredItems = items
 
-  if (searchTerm) {
+  if (searchTerm !== '') {
     filteredItems = filteredItems.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
   }
 
-  if (filterDone) {
+  if (filterDone !== null) {
     filteredItems = filteredItems.filter((item) => item.checked === filterDone)
   }
 
-  if (sortBy) {
+  if (sortBy !== null) {
     filteredItems = filteredItems.sort((a, z) => {
       if (sortBy === "checked") {
         return order === "asc" ? Number(a.checked) - Number(z.checked) : Number(z.checked) - Number(a.checked)

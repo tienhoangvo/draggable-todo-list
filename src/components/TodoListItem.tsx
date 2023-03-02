@@ -31,12 +31,14 @@ const TodoListItem = ({ item, onCheck, onSwap, onUpdate, onDelete }: TodoListIte
 
   const dragEnterHandler: DragEventHandler<HTMLLIElement> = (event) => {
     event.currentTarget.style.borderColor = 'red'
+    event.currentTarget.style.borderStyle = "dashed"
     event.currentTarget.style.translate = '0 -5%'
   
   };
 
   const dragLeaveHandler: DragEventHandler<HTMLLIElement> = (event) => {
     event.currentTarget.style.borderColor = 'black'
+    event.currentTarget.style.borderStyle = "solid"
     event.currentTarget.style.translate = '0 0%'
   };
 
@@ -46,6 +48,7 @@ const TodoListItem = ({ item, onCheck, onSwap, onUpdate, onDelete }: TodoListIte
 
   const dropHandler: DragEventHandler<HTMLLIElement> = (event) => {
     event.currentTarget.style.borderColor = 'black'
+    event.currentTarget.style.borderStyle = "solid"
     event.preventDefault();
     const data = event.dataTransfer.getData("text/plain");
     if (data === item.id) return
@@ -89,7 +92,7 @@ const TodoListItem = ({ item, onCheck, onSwap, onUpdate, onDelete }: TodoListIte
     >
       <input type="checkbox" checked={item.checked} onChange={changeHandler} />
       {item.checked ? <mark dangerouslySetInnerHTML={{__html: item.name}}/> : <span contentEditable={contentEditable} suppressContentEditableWarning style={{ outline: "none "}} onDoubleClick={doubleClickHandler} onBlur={nameChangeHandler} dangerouslySetInnerHTML={{__html: item.name}}/>}
-      <button onClick={deleteClickHandler}>❌</button>
+      <button onClick={deleteClickHandler}>Delete</button>
     </ListItem>
   );
 };

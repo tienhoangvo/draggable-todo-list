@@ -6,7 +6,6 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 const Button = ({children, buttonRef, ...rest } : ButtonProps) => {
-  console.log('re-rendered')
   return (
     <button ref={buttonRef} {...rest}>
       {children}
