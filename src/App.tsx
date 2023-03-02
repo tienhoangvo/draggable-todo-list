@@ -12,7 +12,15 @@ function App() {
   const [order, setOrder] = useState<TodoSortOrder>('asc')
   const [filterDone, setFilterDone] = useState<Todo['checked'] | null>(null)
 
-  let filteredItems = items.filter((todo) => searchTerm ? !todo.name.includes(searchTerm) : filterDone !== null ? todo.checked === filterDone : true)
+  let filteredItems = items
+
+  if (searchTerm) {
+    filteredItems = filteredItems.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  }
+
+  if (filterDone) {
+    filteredItems = filteredItems.filter((item) => item.checked === filterDone)
+  }
 
   if (sortBy) {
     filteredItems = filteredItems.sort((a, z) => {
